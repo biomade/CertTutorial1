@@ -34,35 +34,17 @@ namespace CertTutorial1
             //1: Add Microsoft.AspNetCoreAuthentication.Certificate
             //2: configure authentication Serive
             services.AddAuthentication(
-        CertificateAuthenticationDefaults.AuthenticationScheme)
-        .AddCertificate(options =>
-        {
-            options.Events = new CertificateAuthenticationEvents
-            {
-                OnCertificateValidated = context =>
-                {
-                    var validationService = context.HttpContext.RequestServices.GetService<CertValidationService>();
-
-                    if (validationService.ValidateCertificate(context.ClientCertificate, _env))
-                    {
-                        context.Success();
-                    }
-                    else
-                    {
-                        context.Fail("invalid cert");
-                    }
-
-                    return Task.CompletedTask;
-                },
-                OnAuthenticationFailed = context =>
-                {
-                    context.Fail("invalid cert");
-                    return Task.CompletedTask;
+            CertificateAuthenticationDefaults.AuthenticationScheme)
+            .AddCertificate(
+                options => {
+                    options.AllowedCertificateTypes = CertificateTypes.All;
+                //    options.Events = new CertificateAuthenticationEvents { };
+                    
                 }
-            };
-        });
-        }
+            );
 
+
+        }//end of configure services
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

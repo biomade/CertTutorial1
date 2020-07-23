@@ -19,6 +19,8 @@ namespace CertTutorial1.Pages
 
         public void OnGet()
         {
+            //see if the cert is accessable 
+            ;
         }
     }
 }
