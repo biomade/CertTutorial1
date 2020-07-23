@@ -38,8 +38,7 @@ namespace CertTutorial1
             .AddCertificate(
                 options => {
                     options.AllowedCertificateTypes = CertificateTypes.All;
-                //    options.Events = new CertificateAuthenticationEvents { };
-                    
+                    //no validation here as we will want a login screen
                 }
             );
 
